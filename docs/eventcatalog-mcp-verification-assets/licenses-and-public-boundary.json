@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/LICENSES/EventCatalog.txt",
+    "matchesPackage": true,
+    "sha256": "60dfe8182b508d1e7bfe8f7c8f76208185e1e0c8bf608c2baeb780f6eba02dc3"
+  },
+  {
+    "path": "/LICENSES/EventCatalog-NOTICE.txt",
+    "matchesPackage": true,
+    "sha256": "e8050825dce2e03af79326388769b9d179a0dd2e7ab32eba07c1ac4f2d8c23ad"
+  },
+  {
+    "path": "/LICENSES/AsyncAPI-generator.txt",
+    "matchesPackage": true
+  },
+  {
+    "path": "/.env",
+    "status": 404
+  },
+  {
+    "path": "/.git/config",
+    "status": 404
+  },
+  {
+    "path": "/.discovery.json",
+    "status": 404
+  },
+  {
+    "path": "/.inputs/api-order-fulfillment-0/.git/config",
+    "status": 404
+  }
+]

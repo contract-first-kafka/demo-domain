@@ -1,0 +1,26 @@
+[
+  {
+    "repository": "order-fulfillment-order-events-api",
+    "commit": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "semanticEquality": true,
+    "normalizedTextEquality": true,
+    "declaredRelationshipsMatch": true,
+    "sourceSha256": "032706b7ff91c175b0c51849f973bf329238306cd5490155b071ea884b2d39b7",
+    "schemas": [
+      "order-fulfillment--order-events-accepted",
+      "order-fulfillment--order-events-cancelled",
+      "order-fulfillment--order-events-dispatched"
+    ]
+  },
+  {
+    "repository": "order-fulfillment-inventory-reservations-api",
+    "commit": "33e7919bcf5a4b08c6a75206d793930a07173430",
+    "semanticEquality": true,
+    "normalizedTextEquality": true,
+    "declaredRelationshipsMatch": true,
+    "sourceSha256": "0e5500f58f90840ba316ec8b1aecb29b07884035bca04f308ba4fdc81a77ed23",
+    "schemas": [
+      "order-fulfillment--inventory-reservations-reserved"
+    ]
+  }
+]

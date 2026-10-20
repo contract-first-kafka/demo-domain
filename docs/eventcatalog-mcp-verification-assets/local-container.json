@@ -1,0 +1,1395 @@
+{
+  "endpoint": "http://127.0.0.1:18081/docs/mcp",
+  "checkedAt": "2026-10-20T15:54:11.676Z",
+  "calls": [
+    {
+      "name": "getResources",
+      "args": {
+        "collection": "domains"
+      },
+      "data": {
+        "resources": [
+          {
+            "id": "demo",
+            "version": "1.0.0",
+            "name": "Demo"
+          }
+        ],
+        "totalCount": 1
+      }
+    },
+    {
+      "name": "getResources",
+      "args": {
+        "collection": "systems"
+      },
+      "data": {
+        "resources": [],
+        "totalCount": 0
+      }
+    },
+    {
+      "name": "getResources",
+      "args": {
+        "collection": "services"
+      },
+      "data": {
+        "resources": [
+          {
+            "id": "order-fulfillment--order-events",
+            "version": "1.0.0",
+            "name": "order-fulfillment / order-events (contract)",
+            "summary": "Independent API contract in System order-fulfillment. Owner: group:default/domain-maintainers. Source: https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git. No deployed Component is implied."
+          }
+        ],
+        "totalCount": 1
+      }
+    },
+    {
+      "name": "getResources",
+      "args": {
+        "collection": "events"
+      },
+      "data": {
+        "resources": [
+          {
+            "id": "order-fulfillment--order-events-accepted",
+            "version": "1.0.0",
+            "name": "accepted",
+            "summary": ""
+          },
+          {
+            "id": "order-fulfillment--order-events-cancelled",
+            "version": "1.0.0",
+            "name": "cancelled",
+            "summary": ""
+          },
+          {
+            "id": "order-fulfillment--order-events-dispatched",
+            "version": "1.0.0",
+            "name": "dispatched",
+            "summary": ""
+          }
+        ],
+        "totalCount": 3
+      }
+    },
+    {
+      "name": "getResources",
+      "args": {
+        "collection": "channels"
+      },
+      "data": {
+        "resources": [
+          {
+            "id": "audit",
+            "version": "1.0.0",
+            "name": "audit"
+          },
+          {
+            "id": "orders",
+            "version": "1.0.0",
+            "name": "orders"
+          },
+          {
+            "id": "shipments",
+            "version": "1.0.0",
+            "name": "shipments"
+          }
+        ],
+        "totalCount": 3
+      }
+    },
+    {
+      "name": "getResource",
+      "args": {
+        "collection": "services",
+        "id": "order-fulfillment--order-events"
+      },
+      "data": {
+        "id": "order-fulfillment--order-events",
+        "version": "1.0.0",
+        "collection": "services",
+        "data": {
+          "sends": [],
+          "receives": [
+            {
+              "id": "order-fulfillment--order-events-accepted",
+              "version": "1.0.0",
+              "from": [
+                {
+                  "id": "orders",
+                  "version": "latest",
+                  "delivery_mode": "push"
+                },
+                {
+                  "id": "audit",
+                  "version": "latest",
+                  "delivery_mode": "push"
+                }
+              ]
+            },
+            {
+              "id": "order-fulfillment--order-events-cancelled",
+              "version": "1.0.0",
+              "from": [
+                {
+                  "id": "orders",
+                  "version": "latest",
+                  "delivery_mode": "push"
+                }
+              ]
+            },
+            {
+              "id": "order-fulfillment--order-events-dispatched",
+              "version": "1.0.0",
+              "from": [
+                {
+                  "id": "shipments",
+                  "version": "latest",
+                  "delivery_mode": "push"
+                }
+              ]
+            }
+          ],
+          "id": "order-fulfillment--order-events",
+          "name": "order-fulfillment / order-events (contract)",
+          "summary": "Independent API contract in System order-fulfillment. Owner: group:default/domain-maintainers. Source: https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git. No deployed Component is implied.",
+          "version": "1.0.0",
+          "badges": [],
+          "owners": [
+            {
+              "id": "domain-maintainers"
+            }
+          ],
+          "schemaPath": "specification.yaml",
+          "specifications": {
+            "asyncapiPath": "specification.yaml"
+          }
+        },
+        "body": "Order lifecycle and shipment events with CloudEvents binary headers.\n\n## Architecture diagram\n<NodeGraph />"
+      }
+    },
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "order-fulfillment--order-events"
+      },
+      "data": {
+        "resource": {
+          "id": "order-fulfillment--order-events",
+          "version": "1.0.0",
+          "name": "order-fulfillment / order-events (contract)",
+          "collection": "services"
+        },
+        "sends": [],
+        "receives": [
+          {
+            "id": "order-fulfillment--order-events-accepted",
+            "version": "1.0.0",
+            "name": "accepted",
+            "summary": "",
+            "collection": "events"
+          },
+          {
+            "id": "order-fulfillment--order-events-cancelled",
+            "version": "1.0.0",
+            "name": "cancelled",
+            "summary": "",
+            "collection": "events"
+          },
+          {
+            "id": "order-fulfillment--order-events-dispatched",
+            "version": "1.0.0",
+            "name": "dispatched",
+            "summary": "",
+            "collection": "events"
+          }
+        ]
+      }
+    },
+    {
+      "name": "getSchemaForResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "order-fulfillment--order-events"
+      },
+      "data": [
+        {
+          "url": "/generated/services/order-fulfillment--order-events/specification.yaml",
+          "format": "asyncapi",
+          "code": "asyncapi: 3.1.0\ninfo:\n  title: Order fulfillment events\n  version: 1.0.0\n  description: Order lifecycle and shipment events with CloudEvents binary headers.\n  contact: {name: Demo domain maintainers}\n  license: {name: Apache-2.0}\ndefaultContentType: application/json\nservers:\n  kafka:\n    host: kafka.example.invalid:9092\n    protocol: kafka\n    description: Client deployment supplies the Kafka broker; this contract does not provision it.\n    bindings:\n      kafka:\n        schemaRegistryUrl: https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3\n        schemaRegistryVendor: apicurio\n        bindingVersion: 0.5.0\nchannels:\n  orders:\n    address: demo.orders\n    servers: [{$ref: '#/servers/kafka'}]\n    messages:\n      accepted: {$ref: '#/components/messages/OrderAccepted'}\n      cancelled: {$ref: '#/components/messages/OrderCancelled'}\n  audit:\n    address: demo.orders.audit\n    servers: [{$ref: '#/servers/kafka'}]\n    messages:\n      accepted: {$ref: '#/components/messages/OrderAccepted'}\n  shipments:\n    address: demo.shipments\n    servers: [{$ref: '#/servers/kafka'}]\n    messages:\n      dispatched: {$ref: '#/components/messages/ShipmentDispatched'}\noperations:\n  receiveOrders:\n    action: receive\n    channel: {$ref: '#/channels/orders'}\n    messages:\n      - {$ref: '#/channels/orders/messages/accepted'}\n  receiveCancellations:\n    action: receive\n    channel: {$ref: '#/channels/orders'}\n    messages:\n      - {$ref: '#/channels/orders/messages/cancelled'}\n  receiveAudit:\n    action: receive\n    channel: {$ref: '#/channels/audit'}\n    messages: [{$ref: '#/channels/audit/messages/accepted'}]\n  receiveShipments:\n    action: receive\n    channel: {$ref: '#/channels/shipments'}\n    messages: [{$ref: '#/channels/shipments/messages/dispatched'}]\ncomponents:\n  schemas:\n    CloudEventHeaders:\n      type: object\n      required: [ce_specversion, ce_id, ce_source, ce_type]\n      properties:\n        ce_specversion: {type: string, const: '1.0'}\n        ce_id: {type: string}\n        ce_source: {type: string}\n        ce_type: {type: string}\n    OrderAcceptedPayload:\n      schemaFormat: application/vnd.apache.avro;version=1.9.0\n      schema:\n        type: record\n        name: OrderAccepted\n        namespace: io.github.contractfirstkafka.demo.orderfulfillment\n        fields:\n          - {name: orderId, type: string}\n          - {name: total, type: double}\n    OrderCancelledPayload:\n      schemaFormat: application/vnd.apache.avro;version=1.9.0\n      schema:\n        type: record\n        name: OrderCancelled\n        namespace: io.github.contractfirstkafka.demo.orderfulfillment\n        fields:\n          - {name: orderId, type: string}\n          - {name: reason, type: string}\n    ShipmentPayload:\n      schemaFormat: application/schema+json;version=draft-07\n      schema:\n        $schema: http://json-schema.org/draft-07/schema#\n        title: ShipmentDispatched\n        type: object\n        required: [orderId, trackingId]\n        properties:\n          orderId: {$ref: '#/components/schemas/Identifier'}\n          trackingId: {type: string, minLength: 1}\n        additionalProperties: false\n    Identifier: {type: string, minLength: 1}\n  messages:\n    OrderAccepted:\n      name: OrderAccepted\n      contentType: application/avro\n      headers: {$ref: '#/components/schemas/CloudEventHeaders'}\n      payload: {$ref: '#/components/schemas/OrderAcceptedPayload'}\n      bindings:\n        kafka: {schemaIdLocation: header, bindingVersion: 0.5.0}\n      examples:\n        - name: accepted-order\n          headers: {ce_specversion: '1.0', ce_id: event-001, ce_source: /orders, ce_type: demo.order.accepted}\n          payload: {orderId: order-001, total: 49.95}\n    OrderCancelled:\n      name: OrderCancelled\n      contentType: application/avro\n      headers: {$ref: '#/components/schemas/CloudEventHeaders'}\n      payload: {$ref: '#/components/schemas/OrderCancelledPayload'}\n      bindings:\n        kafka: {schemaIdLocation: header, bindingVersion: 0.5.0}\n      examples:\n        - name: cancelled-order\n          headers: {ce_specversion: '1.0', ce_id: event-002, ce_source: /orders, ce_type: demo.order.cancelled}\n          payload: {orderId: order-002, reason: customer-request}\n    ShipmentDispatched:\n      name: ShipmentDispatched\n      headers: {$ref: '#/components/schemas/CloudEventHeaders'}\n      payload: {$ref: '#/components/schemas/ShipmentPayload'}\n      bindings:\n        kafka: {schemaIdLocation: header, bindingVersion: 0.5.0}\n      examples:\n        - name: dispatched-shipment\n          headers: {ce_specversion: '1.0', ce_id: event-003, ce_source: /shipments, ce_type: demo.shipment.dispatched}\n          payload: {orderId: order-001, trackingId: tracking-001}",
+          "sha256": "2dfb4d2b9fcdc23b69632a43cd4a531b0f0f0dc765a8e321620831b9dc3fa2d5"
+        }
+      ]
+    },
+    {
+      "name": "getSchemaForResource",
+      "args": {
+        "resourceCollection": "events",
+        "resourceId": "order-fulfillment--order-events-accepted"
+      },
+      "data": [
+        {
+          "id": "schema:events:order-fulfillment--order-events-accepted:1.0.0:schema.avsc",
+          "name": "Schema",
+          "format": "avro",
+          "source": {
+            "provider": "file",
+            "path": "schema.avsc"
+          },
+          "code": "{\n  \"type\": \"record\",\n  \"name\": \"OrderAccepted\",\n  \"namespace\": \"io.github.contractfirstkafka.demo.orderfulfillment\",\n  \"fields\": [\n    {\n      \"name\": \"orderId\",\n      \"type\": \"string\"\n    },\n    {\n      \"name\": \"total\",\n      \"type\": \"double\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "order-fulfillment--order-events-accepted",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "order-fulfillment--order-events-accepted",
+          "version": "1.0.0",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "order-fulfillment--order-events-accepted",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "order-fulfillment--order-events-accepted",
+          "version": "1.0.0",
+          "collection": "events"
+        },
+        "consumers": [
+          {
+            "id": "order-fulfillment--order-events",
+            "version": "1.0.0",
+            "name": "order-fulfillment / order-events (contract)",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getSchemaForResource",
+      "args": {
+        "resourceCollection": "events",
+        "resourceId": "order-fulfillment--order-events-cancelled"
+      },
+      "data": [
+        {
+          "id": "schema:events:order-fulfillment--order-events-cancelled:1.0.0:schema.avsc",
+          "name": "Schema",
+          "format": "avro",
+          "source": {
+            "provider": "file",
+            "path": "schema.avsc"
+          },
+          "code": "{\n  \"type\": \"record\",\n  \"name\": \"OrderCancelled\",\n  \"namespace\": \"io.github.contractfirstkafka.demo.orderfulfillment\",\n  \"fields\": [\n    {\n      \"name\": \"orderId\",\n      \"type\": \"string\"\n    },\n    {\n      \"name\": \"reason\",\n      \"type\": \"string\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "order-fulfillment--order-events-cancelled",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "order-fulfillment--order-events-cancelled",
+          "version": "1.0.0",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "order-fulfillment--order-events-cancelled",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "order-fulfillment--order-events-cancelled",
+          "version": "1.0.0",
+          "collection": "events"
+        },
+        "consumers": [
+          {
+            "id": "order-fulfillment--order-events",
+            "version": "1.0.0",
+            "name": "order-fulfillment / order-events (contract)",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getSchemaForResource",
+      "args": {
+        "resourceCollection": "events",
+        "resourceId": "order-fulfillment--order-events-dispatched"
+      },
+      "data": [
+        {
+          "id": "schema:events:order-fulfillment--order-events-dispatched:1.0.0:schema.json",
+          "name": "Schema",
+          "format": "jsonschema",
+          "source": {
+            "provider": "file",
+            "path": "schema.json"
+          },
+          "code": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"ShipmentDispatched\",\n  \"type\": \"object\",\n  \"required\": [\n    \"orderId\",\n    \"trackingId\"\n  ],\n  \"properties\": {\n    \"orderId\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"x-parser-schema-id\": \"Identifier\"\n    },\n    \"trackingId\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"x-parser-schema-id\": \"<anonymous-schema-10>\"\n    }\n  },\n  \"additionalProperties\": false,\n  \"x-parser-schema-id\": \"<anonymous-schema-9>\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "order-fulfillment--order-events-dispatched",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "order-fulfillment--order-events-dispatched",
+          "version": "1.0.0",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "order-fulfillment--order-events-dispatched",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "order-fulfillment--order-events-dispatched",
+          "version": "1.0.0",
+          "collection": "events"
+        },
+        "consumers": [
+          {
+            "id": "order-fulfillment--order-events",
+            "version": "1.0.0",
+            "name": "order-fulfillment / order-events (contract)",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getResource",
+      "args": {
+        "collection": "domains",
+        "id": "demo"
+      },
+      "data": {
+        "id": "demo",
+        "version": "1.0.0",
+        "collection": "domains",
+        "data": {
+          "services": [
+            {
+              "id": "order-fulfillment--order-events",
+              "version": "1.0.0"
+            }
+          ],
+          "id": "demo",
+          "name": "Demo",
+          "version": "1.0.0",
+          "owners": [
+            {
+              "id": "domain-maintainers"
+            }
+          ]
+        },
+        "body": "# Demo\n\nOrder fulfillment architecture and independent event contracts.\n\nThis catalog documents independent API contracts. A contract service describes an\ninterface, not a deployed application or a verified producer/consumer.\n\n## Architecture decisions\n\nContracts remain authoritative in their own Git repositories. Domain and System\nrelationships come from the existing Domain activation and System API references.\n\nAdd business concepts, cross-system processes, and architecture decisions here or\nas additional native EventCatalog documentation pages. Generated resources are\nbuild outputs and do not replace these authored pages."
+      }
+    }
+  ],
+  "server": {
+    "name": "EventCatalog MCP Server",
+    "version": "1.3.0"
+  },
+  "capabilities": {
+    "resources": {
+      "listChanged": true
+    },
+    "tools": {
+      "listChanged": true
+    }
+  },
+  "tools": [
+    {
+      "name": "getResources",
+      "title": "List catalog resources",
+      "description": "Use this tool to get events, agents, services, commands, queries, flows, domains, channels, entities from EventCatalog. Supports pagination via cursor and filtering by search term (searches name, id, and summary).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "collection": {
+            "type": "string",
+            "enum": [
+              "events",
+              "agents",
+              "adrs",
+              "services",
+              "commands",
+              "queries",
+              "flows",
+              "domains",
+              "systems",
+              "channels",
+              "entities",
+              "containers",
+              "diagrams",
+              "data-products"
+            ],
+            "description": "The collection to get the resources from"
+          },
+          "cursor": {
+            "description": "Pagination cursor from previous response",
+            "type": "string"
+          },
+          "search": {
+            "description": "Search term to filter resources by name, id, or summary (case-insensitive)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getResource",
+      "title": "Get a catalog resource",
+      "description": "Use this tool to get a specific resource from EventCatalog by its id. Returns the frontmatter and markdown documentation. Omit the version to get the latest version.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "collection": {
+            "type": "string",
+            "enum": [
+              "events",
+              "agents",
+              "adrs",
+              "services",
+              "commands",
+              "queries",
+              "flows",
+              "domains",
+              "systems",
+              "channels",
+              "entities",
+              "containers",
+              "diagrams",
+              "data-products"
+            ],
+            "description": "The collection to get the resource from"
+          },
+          "id": {
+            "type": "string",
+            "description": "The id of the resource to get"
+          },
+          "version": {
+            "description": "The version of the resource. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection",
+          "id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "title": "Get messages a resource sends and receives",
+      "description": "Use this tool to get the messages (events, commands, queries) a service, agent or domain sends and receives. Each message is resolved to its catalog id, version, name and summary; messages that are referenced but not documented in the catalog are marked notFound. Omit the version to use the latest version of the resource.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resourceId": {
+            "type": "string",
+            "description": "The id of the resource to get the messages produced or consumed for"
+          },
+          "resourceVersion": {
+            "description": "The version of the resource. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "resourceCollection": {
+            "default": "services",
+            "type": "string",
+            "enum": [
+              "agents",
+              "services",
+              "adrs",
+              "events",
+              "commands",
+              "queries",
+              "flows",
+              "domains",
+              "systems",
+              "channels",
+              "entities",
+              "data-products"
+            ],
+            "description": "The collection of the resource to get the messages produced or consumed for"
+          }
+        },
+        "required": [
+          "resourceId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getSchemaForResource",
+      "title": "Get schemas and specifications",
+      "description": "Use this tool to get the schema or specifications (openapi or asyncapi or graphql) for a resource by its id and version. To show the user a schema, use showResource with view \"schema\" instead: it shows them an interactive schema viewer.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resourceId": {
+            "type": "string",
+            "description": "The id of the resource to get the schema for"
+          },
+          "resourceVersion": {
+            "description": "The version of the resource. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "resourceCollection": {
+            "default": "services",
+            "type": "string",
+            "enum": [
+              "agents",
+              "services",
+              "adrs",
+              "events",
+              "commands",
+              "queries",
+              "flows",
+              "domains",
+              "systems",
+              "channels",
+              "entities",
+              "data-products"
+            ],
+            "description": "The collection of the resource to get the schema for"
+          }
+        },
+        "required": [
+          "resourceId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "findResourcesByOwner",
+      "title": "Find resources by owner",
+      "description": "Use this tool to find all resources (agents, services, events, commands, etc.) owned by a specific team or user",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ownerId": {
+            "type": "string",
+            "description": "The id of the owner (team or user) to find resources for"
+          }
+        },
+        "required": [
+          "ownerId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "title": "Find producers of a message",
+      "description": "Use this tool to find which agents or services produce (send) a specific message (event, command, or query)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "description": "The id of the message to find producers for"
+          },
+          "messageVersion": {
+            "description": "The version of the message. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "messageCollection": {
+            "default": "events",
+            "type": "string",
+            "enum": [
+              "events",
+              "commands",
+              "queries"
+            ],
+            "description": "The collection type of the message (events, commands, or queries)"
+          }
+        },
+        "required": [
+          "messageId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "title": "Find consumers of a message",
+      "description": "Use this tool to find which agents or services consume (receive) a specific message (event, command, or query)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "description": "The id of the message to find consumers for"
+          },
+          "messageVersion": {
+            "description": "The version of the message. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "messageCollection": {
+            "default": "events",
+            "type": "string",
+            "enum": [
+              "events",
+              "commands",
+              "queries"
+            ],
+            "description": "The collection type of the message (events, commands, or queries)"
+          }
+        },
+        "required": [
+          "messageId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getC4Diagram",
+      "title": "Get C4 (LikeC4) diagrams",
+      "description": "Use this tool to get the C4 diagram (or likeC4) in EventCatalog. These files usually have a .c4 extension on them",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "viewId": {
+            "type": "string",
+            "description": "The id of the LikeC4 view to return source files for"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "analyzeChangeImpact",
+      "title": "Analyze the impact of changing a message",
+      "description": "Use this tool to analyze the impact of changing a message. Returns all affected agents and services (producers and consumers), the teams that own them, and the blast radius of the change",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "description": "The id of the message to analyze impact for"
+          },
+          "messageVersion": {
+            "description": "The version of the message. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "messageCollection": {
+            "default": "events",
+            "type": "string",
+            "enum": [
+              "events",
+              "commands",
+              "queries"
+            ],
+            "description": "The collection type of the message (events, commands, or queries)"
+          }
+        },
+        "required": [
+          "messageId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "explainBusinessFlow",
+      "title": "Explain a business flow",
+      "description": "Use this tool to get detailed information about a business flow (state machine). Returns the flow definition, steps, mermaid diagram if available, and related agents and services",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "flowId": {
+            "type": "string",
+            "description": "The id of the flow to explain"
+          },
+          "flowVersion": {
+            "description": "The version of the flow. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "flowId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getTeams",
+      "title": "List teams",
+      "description": "Use this tool to get all teams in EventCatalog. Teams are groups of users that own resources. Supports pagination via cursor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "description": "Pagination cursor from previous response",
+            "type": "string"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getTeam",
+      "title": "Get a team",
+      "description": "Use this tool to get a specific team by its id. Returns team details including members.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the team to get"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getUsers",
+      "title": "List users",
+      "description": "Use this tool to get all users in EventCatalog. Users are individuals who can own resources or be members of teams. Supports pagination via cursor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "description": "Pagination cursor from previous response",
+            "type": "string"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getUser",
+      "title": "Get a user",
+      "description": "Use this tool to get a specific user by their id. Returns user details including role and contact info.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the user to get"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "showResource",
+      "title": "Show a resource",
+      "description": "Show the user a resource in EventCatalog's interactive viewer. Pick what to show with view: \"architecture\" shows an architecture diagram of a domain, system, service, agent, event, command, query, flow, data store or data product: what it connects to, what it publishes and consumes, and the systems and domains around it. Use it whenever the user wants to see or understand how something works or fits together, e.g. \"show me how the Order Service works\", \"how does the Ordering domain fit together\", \"what does Payments talk to\", or asks for a diagram, map or visual of something. Prefer it over drawing your own diagram. For domains and systems, pass detail \"overview\" for just the domains, systems and their relationships, or \"full\" (default) to include services, messages and channels. \"schema\" shows the schema of a message (event, command or query) or other resource: its properties, types, descriptions and which ones are required. Use it whenever the user wants to see or understand a schema or payload, e.g. \"show me the schema for OrderCreated\", \"what fields does PlaceOrder have\", \"what does the OrderShipped payload look like\". Clients that support MCP Apps show one viewer and switch it to each thing you show, so call this again to show the user something else. The result also contains what is shown (the diagram as Mermaid in mermaidCode, or the schema code) so you can understand it. When the client shows the viewer, do not redraw the diagram or print the whole schema again in your reply: explain it and point out what matters. Otherwise, show the user the mermaidCode or the relevant parts of the schema code.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "view": {
+            "type": "string",
+            "enum": [
+              "architecture",
+              "schema"
+            ],
+            "description": "What to show: \"architecture\" for an architecture diagram, \"schema\" for the schema of a message"
+          },
+          "resourceId": {
+            "type": "string",
+            "description": "The id of the resource to show"
+          },
+          "resourceVersion": {
+            "description": "The version of the resource. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "resourceCollection": {
+            "default": "events",
+            "type": "string",
+            "enum": [
+              "agents",
+              "services",
+              "adrs",
+              "events",
+              "commands",
+              "queries",
+              "flows",
+              "domains",
+              "systems",
+              "channels",
+              "entities",
+              "data-products",
+              "containers"
+            ],
+            "description": "The collection of the resource (defaults to events)"
+          },
+          "detail": {
+            "description": "For view \"architecture\" of domains and systems: \"overview\" shows only domains, systems and their relationships; \"full\" (default) also shows services, messages and channels",
+            "type": "string",
+            "enum": [
+              "overview",
+              "full"
+            ]
+          }
+        },
+        "required": [
+          "view",
+          "resourceId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://eventcatalog/viewer.html"
+        },
+        "ui/resourceUri": "ui://eventcatalog/viewer.html"
+      }
+    },
+    {
+      "name": "getResourceView",
+      "title": "Load a resource for the viewer",
+      "description": "Loads the architecture diagram or schema shown by the EventCatalog viewer. To show the user a resource, use showResource instead.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "view": {
+            "type": "string",
+            "enum": [
+              "architecture",
+              "schema"
+            ],
+            "description": "What to show: \"architecture\" for an architecture diagram, \"schema\" for the schema of a message"
+          },
+          "resourceId": {
+            "type": "string",
+            "description": "The id of the resource to show"
+          },
+          "resourceVersion": {
+            "description": "The version of the resource. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          },
+          "resourceCollection": {
+            "default": "events",
+            "type": "string",
+            "enum": [
+              "agents",
+              "services",
+              "adrs",
+              "events",
+              "commands",
+              "queries",
+              "flows",
+              "domains",
+              "systems",
+              "channels",
+              "entities",
+              "data-products",
+              "containers"
+            ],
+            "description": "The collection of the resource (defaults to events)"
+          }
+        },
+        "required": [
+          "view",
+          "resourceId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://eventcatalog/viewer.html",
+          "visibility": [
+            "app"
+          ]
+        },
+        "ui/resourceUri": "ui://eventcatalog/viewer.html"
+      }
+    },
+    {
+      "name": "findMessageBySchemaId",
+      "title": "Find a message from a schema",
+      "description": "Use this tool when a user shares a schema file (Avro, JSON Schema, Protobuf) and wants to find it in EventCatalog. Look for \"x-eventcatalog-id\" and \"x-eventcatalog-version\" in the schema - these may be properties in the schema OR in comments (e.g. // x-eventcatalog-id: OrderCreated). Pass the id as messageId. If version exists, pass it as messageVersion, otherwise omit it to get the latest version. Returns the message resource along with its producers and consumers.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "description": "The message id (from x-eventcatalog-id in the schema)"
+          },
+          "messageVersion": {
+            "description": "The message version (from x-eventcatalog-version in the schema). If not provided, returns the latest version.",
+            "type": "string"
+          },
+          "collection": {
+            "description": "Optional hint for which collection to search (events, commands, or queries)",
+            "type": "string",
+            "enum": [
+              "events",
+              "commands",
+              "queries"
+            ]
+          }
+        },
+        "required": [
+          "messageId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "explainUbiquitousLanguageTerms",
+      "title": "Explain ubiquitous language terms",
+      "description": "Use this tool to explain ubiquitous language terms from Domain-Driven Design for a specific domain. Returns the glossary of terms defined for the domain and its subdomains, including duplicate term detection.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domainId": {
+            "type": "string",
+            "description": "The id of the domain to get ubiquitous language terms for"
+          },
+          "domainVersion": {
+            "description": "The version of the domain. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "domainId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getDataProductInputs",
+      "title": "Get data product inputs",
+      "description": "Use this tool to get the inputs (resources consumed) for a data product. Returns fully hydrated input resources with their id, version, name, summary, and collection type.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dataProductId": {
+            "type": "string",
+            "description": "The id of the data product"
+          },
+          "dataProductVersion": {
+            "description": "The version of the data product. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dataProductId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getDataProductOutputs",
+      "title": "Get data product outputs and contracts",
+      "description": "Use this tool to get the outputs (resources produced) for a data product. Returns fully hydrated output resources with their id, version, name, summary, collection type, and data contracts (if defined). Data contracts include the contract name, path, format, type, and content.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dataProductId": {
+            "type": "string",
+            "description": "The id of the data product"
+          },
+          "dataProductVersion": {
+            "description": "The version of the data product. Omit it (or pass \"latest\") to use the latest version.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dataProductId"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getCustomDocs",
+      "title": "List custom documentation",
+      "description": "Use this tool to list the custom documentation pages in EventCatalog (guides, runbooks, architecture notes, onboarding docs, etc.). Returns page ids, titles, and summaries without page content. Supports pagination via cursor and filtering by search term (searches title, id, and summary).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "description": "Pagination cursor from previous response",
+            "type": "string"
+          },
+          "search": {
+            "description": "Search term to filter docs by title, id, or summary (case-insensitive)",
+            "type": "string"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "searchCustomDocs",
+      "title": "Search custom documentation",
+      "description": "Use this tool to search the full text of custom documentation pages in EventCatalog. Returns the best matching sections, each with the page id, section heading, and a short snippet. To read more, call getCustomDoc with the returned page id (and optionally the section heading). Reformulate the query and search again if the first results are not relevant. If you are unsure where to find something, or the structured catalog tools have not answered the question, search here - custom documentation often contains guides, runbooks, and context not captured elsewhere in the catalog. An empty result may simply mean the catalog has no custom documentation on the topic.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Full-text search query, e.g. keywords describing the topic to find"
+          },
+          "limit": {
+            "description": "Maximum number of results to return (default 10)",
+            "type": "number"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "getCustomDoc",
+      "title": "Get a custom documentation page",
+      "description": "Use this tool to get the full markdown content of a custom documentation page by its id or slug. Optionally pass a section heading to get only that section - prefer this for large pages to keep responses small.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id or slug of the custom documentation page"
+          },
+          "section": {
+            "description": "Optional section heading to return only that section of the page",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "resources": {
+    "resources": [
+      {
+        "name": "EventCatalog viewer",
+        "uri": "ui://eventcatalog/viewer.html",
+        "description": "Interactive EventCatalog viewer (architecture diagrams and schemas), shown by MCP hosts that support MCP Apps",
+        "mimeType": "text/html;profile=mcp-app"
+      },
+      {
+        "name": "All Resources in EventCatalog",
+        "uri": "eventcatalog://all",
+        "description": "All messages, agents, domains and services in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Events in EventCatalog",
+        "uri": "eventcatalog://events",
+        "description": "All events in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Commands in EventCatalog",
+        "uri": "eventcatalog://commands",
+        "description": "All commands in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Queries in EventCatalog",
+        "uri": "eventcatalog://queries",
+        "description": "All queries in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Services in EventCatalog",
+        "uri": "eventcatalog://services",
+        "description": "All services in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Systems in EventCatalog",
+        "uri": "eventcatalog://systems",
+        "description": "All systems in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Agents in EventCatalog",
+        "uri": "eventcatalog://agents",
+        "description": "All agents in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Architecture Decision Records (adrs) in EventCatalog",
+        "uri": "eventcatalog://adrs",
+        "description": "All architecture decision records in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Domains in EventCatalog",
+        "uri": "eventcatalog://domains",
+        "description": "All domains in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Diagrams in EventCatalog",
+        "uri": "eventcatalog://diagrams",
+        "description": "All diagrams in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Channels in EventCatalog",
+        "uri": "eventcatalog://channels",
+        "description": "All channels in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Entities in EventCatalog",
+        "uri": "eventcatalog://entities",
+        "description": "All entities in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Containers  in EventCatalog",
+        "uri": "eventcatalog://containers",
+        "description": "All containers in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Flows in EventCatalog",
+        "uri": "eventcatalog://flows",
+        "description": "All flows in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Data Products in EventCatalog",
+        "uri": "eventcatalog://data-products",
+        "description": "All data products in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Teams in EventCatalog",
+        "uri": "eventcatalog://teams",
+        "description": "All teams in EventCatalog",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "All Users in EventCatalog",
+        "uri": "eventcatalog://users",
+        "description": "All users in EventCatalog",
+        "mimeType": "application/json"
+      }
+    ]
+  },
+  "domain": {
+    "id": "demo",
+    "version": "1.0.0",
+    "collection": "domains",
+    "data": {
+      "services": [
+        {
+          "id": "order-fulfillment--order-events",
+          "version": "1.0.0"
+        }
+      ],
+      "id": "demo",
+      "name": "Demo",
+      "version": "1.0.0",
+      "owners": [
+        {
+          "id": "domain-maintainers"
+        }
+      ]
+    },
+    "body": "# Demo\n\nOrder fulfillment architecture and independent event contracts.\n\nThis catalog documents independent API contracts. A contract service describes an\ninterface, not a deployed application or a verified producer/consumer.\n\n## Architecture decisions\n\nContracts remain authoritative in their own Git repositories. Domain and System\nrelationships come from the existing Domain activation and System API references.\n\nAdd business concepts, cross-system processes, and architecture decisions here or\nas additional native EventCatalog documentation pages. Generated resources are\nbuild outputs and do not replace these authored pages."
+  },
+  "all": {
+    "contents": [
+      {
+        "uri": "eventcatalog://all",
+        "mimeType": "application/json",
+        "text": "{\n  \"resources\": [\n    {\n      \"type\": \"events\",\n      \"id\": \"order-fulfillment--order-events-accepted\",\n      \"version\": \"1.0.0\",\n      \"name\": \"accepted\",\n      \"summary\": \"\"\n    },\n    {\n      \"type\": \"events\",\n      \"id\": \"order-fulfillment--order-events-cancelled\",\n      \"version\": \"1.0.0\",\n      \"name\": \"cancelled\",\n      \"summary\": \"\"\n    },\n    {\n      \"type\": \"events\",\n      \"id\": \"order-fulfillment--order-events-dispatched\",\n      \"version\": \"1.0.0\",\n      \"name\": \"dispatched\",\n      \"summary\": \"\"\n    },\n    {\n      \"type\": \"services\",\n      \"id\": \"order-fulfillment--order-events\",\n      \"version\": \"1.0.0\",\n      \"name\": \"order-fulfillment / order-events (contract)\",\n      \"summary\": \"Independent API contract in System order-fulfillment. Owner: group:default/domain-maintainers. Source: https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git. No deployed Component is implied.\"\n    },\n    {\n      \"type\": \"domains\",\n      \"id\": \"demo\",\n      \"version\": \"1.0.0\",\n      \"name\": \"Demo\"\n    },\n    {\n      \"type\": \"channels\",\n      \"id\": \"audit\",\n      \"version\": \"1.0.0\",\n      \"name\": \"audit\"\n    },\n    {\n      \"type\": \"channels\",\n      \"id\": \"orders\",\n      \"version\": \"1.0.0\",\n      \"name\": \"orders\"\n    },\n    {\n      \"type\": \"channels\",\n      \"id\": \"shipments\",\n      \"version\": \"1.0.0\",\n      \"name\": \"shipments\"\n    }\n  ]\n}"
+      }
+    ]
+  }
+}

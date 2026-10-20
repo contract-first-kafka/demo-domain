@@ -1,0 +1,20 @@
+{
+  "core": "5.4.1",
+  "generator": "7.1.0",
+  "files": {
+    "dist/eventcatalog.js": "5a63a3b004c234c5489fe834935f054e487b07cd118483967bbef7192dca35a7",
+    "eventcatalog/src/features/mcp/mcp-server.ts": "de38012d7e79f1bc42356453107e0e9d5135b5bc31f0e2b0ddd7b1e48754eb98",
+    "eventcatalog/src/features/tools/catalog-tools.ts": "b7e1583ccebf22ae348192cbccf2f3bfbd8f9dd76db5aa62bfe590d7ee42ec5e",
+    "eventcatalog/integrations/runtime-dependencies.mjs": "60e150b2b49f8cce56a99173d6855559c0049bfe515bf578cc6615e7cf335a14",
+    "LICENSE": "60dfe8182b508d1e7bfe8f7c8f76208185e1e0c8bf608c2baeb780f6eba02dc3",
+    "NOTICE": "e8050825dce2e03af79326388769b9d179a0dd2e7ab32eba07c1ac4f2d8c23ad"
+  },
+  "findings": [
+    "output=server and mcp.enabled=true; native /docs/mcp stateless Streamable HTTP",
+    "start CLI runs dist/server/entry.mjs, sets PROJECT_DIR and CATALOG_DIR, initializes /_eventcatalog/start",
+    "SSR imports @eventcatalog/core/dist/runtime-dependencies; dist alone is insufficient",
+    "service getSchemaForResource reads /generated paths as files; image symlink is required in 5.4.1",
+    "message schemas are embedded in generated schemas collection",
+    "default storage is memory; Studio is not enabled; no serving PVC required"
+  ]
+}

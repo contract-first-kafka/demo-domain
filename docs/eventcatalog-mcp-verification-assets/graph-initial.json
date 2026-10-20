@@ -1,0 +1,48 @@
+{
+  "graph": {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/visualiser/domains/demo/1.0.0/",
+    "nodes": [
+      "ViewingDomainDemov1.0.0",
+      "EventInventory reserved for an orderInventory reserved for an order(v1.0.0)Inventory reservation confirmed for fulfillment planning.domain-maintainers",
+      "Serviceorder-fulfillment / inventory-reservations (contract)order-fulfillment / inventory-reservations (contract)(v1.0.0)Independent API contract in System order-fulfillment. Owner: group:default/domain-maintainers. Source: https://github.com/contract-first-kafka/order-fulfillment-inventory-reservations-api.git. No deployed Component is implied.domain-maintainersAsyncAPI",
+      "Channelreservationsv1.0.0demo.inventory.reservationskafka",
+      "Eventaccepted(v1.0.0)domain-maintainers",
+      "Serviceorder-fulfillment / order-events (contract)order-fulfillment / order-events (contract)(v1.0.0)Independent API contract in System order-fulfillment. Owner: group:default/domain-maintainers. Source: https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git. No deployed Component is implied.domain-maintainersAsyncAPI",
+      "Channelordersv1.0.0demo.orderskafka",
+      "Channelauditv1.0.0demo.orders.auditkafka",
+      "Eventcancelled(v1.0.0)domain-maintainers",
+      "Eventdispatched(v1.0.0)domain-maintainers",
+      "Channelshipmentsv1.0.0demo.shipmentskafka"
+    ]
+  },
+  "channels": [
+    {
+      "id": "orders",
+      "status": 200,
+      "text": "⌘\nK\nAsk\nAssistant\nGood morning\n\nI'm here to help with your architecture\n\nTell me about this\nWho is responsible for this?\nWhat else is related to this?\nAIExplore your catalog with AI\nSend\nBased on Channel: orders\nORDERS\nCHANNEL\nQuick Reference\nOverview\nResources\nArchitecture\nDiagram\nChannel\norders\n\nChannel\nAsk a question\nCopy page as markdown\nView as Markdown\nChannel information\n\nAddress: demo.orders\nProtocol:\nkafka\n\nX (Twitter)\nYouTube\nPowered by EventCatalog"
+    },
+    {
+      "id": "audit",
+      "status": 200,
+      "text": "⌘\nK\nAsk\nAssistant\nGood morning\n\nI'm here to help with your architecture\n\nTell me about this\nWho is responsible for this?\nWhat else is related to this?\nAIExplore your catalog with AI\nSend\nBased on Channel: audit\nAUDIT\nCHANNEL\nQuick Reference\nOverview\nResources\nArchitecture\nDiagram\nChannel\naudit\n\nChannel\nAsk a question\nCopy page as markdown\nView as Markdown\nChannel information\n\nAddress: demo.orders.audit\nProtocol:\nkafka\n\nX (Twitter)\nYouTube\nPowered by EventCatalog"
+    },
+    {
+      "id": "shipments",
+      "status": 200,
+      "text": "⌘\nK\nAsk\nAssistant\nGood morning\n\nI'm here to help with your architecture\n\nTell me about this\nWho is responsible for this?\nWhat else is related to this?\nAIExplore your catalog with AI\nSend\nBased on Channel: shipments\nSHIPMENTS\nCHANNEL\nQuick Reference\nOverview\nResources\nArchitecture\nDiagram\nChannel\nshipments\n\nChannel\nAsk a question\nCopy page as markdown\nView as Markdown\nChannel information\n\nAddress: demo.shipments\nProtocol:\nkafka\n\nX (Twitter)\nYouTube\nPowered by EventCatalog"
+    },
+    {
+      "id": "reservations",
+      "status": 200,
+      "text": "⌘\nK\nAsk\nAssistant\nGood morning\n\nI'm here to help with your architecture\n\nTell me about this\nWho is responsible for this?\nWhat else is related to this?\nAIExplore your catalog with AI\nSend\nBased on Channel: reservations\nRESERVATIONS\nCHANNEL\nQuick Reference\nOverview\nResources\nArchitecture\nDiagram\nChannel\nreservations\n\nChannel\nAsk a question\nCopy page as markdown\nView as Markdown\nChannel information\n\nAddress: demo.inventory.reservations\nProtocol:\nkafka\n\nX (Twitter)\nYouTube\nPowered by EventCatalog"
+    }
+  ],
+  "errors": [
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+  ]
+}
