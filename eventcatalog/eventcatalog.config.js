@@ -1,7 +1,10 @@
 import fs from 'node:fs';
-const inputs = JSON.parse(fs.readFileSync(new URL('./.discovery.json', import.meta.url)));
-const overview = fs.readFileSync(new URL('./docs/index.mdx', import.meta.url), 'utf8').replace(/^---[\s\S]*?---\s*/, '');
+const inputs = JSON.parse(fs.readFileSync(process.cwd() + '/.discovery.json'));
+const overview = fs.readFileSync(process.cwd() + '/docs/index.mdx', 'utf8').replace(/^---[\s\S]*?---\s*/, '');
 export default {
+  cId: 'df2c2edf-07b4-455d-960e-69c20b57e7ca',
+  // required by eventcatalog
+  tsd: 1792473747482,
   title: inputs.domain.name,
   tagline: 'Domain architecture and authoritative API contracts',
   organizationName: inputs.organization,
