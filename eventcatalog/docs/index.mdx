@@ -26,3 +26,9 @@ Reserve inventory before arranging shipment. Order acceptance, stock reservation
 and shipment dispatch are separate business facts documented by independent
 contracts. This architecture describes the intended process; it does not claim
 that producers or consumers have been deployed.
+
+## Agent discovery
+
+The web UI and native MCP endpoint at `/docs/mcp` expose the same generated
+architecture and authoritative contract snapshots. Agents can inspect schemas
+and declared relationships without publishing contracts to a second destination.
