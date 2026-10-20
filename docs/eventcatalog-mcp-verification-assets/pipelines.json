@@ -1,0 +1,2853 @@
+[
+  {
+    "name": "eventcatalog-qktlh",
+    "status": {
+      "childReferences": [
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-acquire-build",
+          "pipelineTaskName": "acquire-build"
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-clone",
+          "pipelineTaskName": "clone",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-discover",
+          "pipelineTaskName": "discover",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-generate-and-build",
+          "pipelineTaskName": "generate-and-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-build-and-push",
+          "pipelineTaskName": "build-and-push",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-publish-gitops-intent",
+          "pipelineTaskName": "publish-gitops-intent",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qktlh-release-build",
+          "pipelineTaskName": "release-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ],
+      "completionTime": "2026-10-20T16:00:19Z",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-20T16:00:19Z",
+          "message": "Tasks Completed: 7 (Failed: 0, Cancelled 0), Skipped: 0",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "finallyStartTime": "2026-10-20T16:00:12Z",
+      "pipelineSpec": {
+        "finally": [
+          {
+            "name": "release-build",
+            "params": [
+              {
+                "name": "status",
+                "value": "$(tasks.status)"
+              }
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "status",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "release",
+                    "demo-catalog",
+                    "eventcatalog-qktlh",
+                    "04ce5f9a-0361-41ec-9147-10aab4745d7f",
+                    "$(params.status)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "name": "acquire-build",
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "acquired",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "acquire",
+                    "demo-catalog",
+                    "eventcatalog-qktlh",
+                    "04ce5f9a-0361-41ec-9147-10aab4745d7f"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            }
+          },
+          {
+            "name": "clone",
+            "params": [
+              {
+                "name": "URL",
+                "value": "https://github.com/contract-first-kafka/demo-domain.git"
+              },
+              {
+                "name": "REVISION",
+                "value": "main"
+              },
+              {
+                "name": "SUBDIRECTORY",
+                "value": "source"
+              },
+              {
+                "name": "DELETE_EXISTING",
+                "value": "true"
+              }
+            ],
+            "runAfter": [
+              "acquire-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "git-clone"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "output",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "discover",
+            "runAfter": [
+              "clone"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "changed",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "npm_config_cache",
+                      "value": "/tmp/npm-cache"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "discover",
+                  "script": "#!/bin/sh\nset -eu\nnpm ci --ignore-scripts --no-audit --no-fund\nnpm run discover\nnode -e 'const fs=require(\"fs\"),d=JSON.parse(fs.readFileSync(\".discovery.json\"));fs.writeFileSync(\"$(results.changed.path)\",String(d.changed));fs.writeFileSync(\"$(results.fingerprint.path)\",d.inputDigest)'\n",
+                  "workingDir": "$(workspaces.source.path)/source/eventcatalog"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "generate-and-build",
+            "params": [
+              {
+                "name": "SCRIPT",
+                "value": "set -eu\nexport CATALOG_URL=\"https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io\"\nexport NODE_OPTIONS=--max-old-space-size=4096\nmkdir -p public/LICENSES\ncp node_modules/@eventcatalog/core/LICENSE public/LICENSES/EventCatalog.txt\ncp node_modules/@eventcatalog/core/NOTICE public/LICENSES/EventCatalog-NOTICE.txt\ncp node_modules/@eventcatalog/generator-asyncapi/LICENSE public/LICENSES/AsyncAPI-generator.txt\nnpm run generate\nnpm run build\n"
+              }
+            ],
+            "runAfter": [
+              "discover"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "nodejs"
+                },
+                {
+                  "name": "namespace",
+                  "value": "tekton-tasks"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "build-and-push",
+            "params": [
+              {
+                "name": "IMAGE",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-$(tasks.discover.results.fingerprint)"
+              },
+              {
+                "name": "DOCKERFILE",
+                "value": "Dockerfile"
+              }
+            ],
+            "runAfter": [
+              "generate-and-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "buildah"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              },
+              {
+                "name": "dockerconfig",
+                "workspace": "registry-auth"
+              }
+            ]
+          },
+          {
+            "name": "publish-gitops-intent",
+            "params": [
+              {
+                "name": "image",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "$(tasks.discover.results.fingerprint)"
+              }
+            ],
+            "retries": 2,
+            "runAfter": [
+              "build-and-push"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "image",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/publish-intent.mjs",
+                    "https://github.com/contract-first-kafka/demo-domain.git",
+                    "$(params.image)",
+                    "$(params.fingerprint)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "PROJECT",
+                      "value": "$(workspaces.source.path)/source/eventcatalog"
+                    },
+                    {
+                      "name": "GITHUB_APP_ID",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "app-id",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    },
+                    {
+                      "name": "GITHUB_APP_PRIVATE_KEY",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "private-key",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "update-intent",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          }
+        ],
+        "workspaces": [
+          {
+            "name": "source"
+          },
+          {
+            "name": "registry-auth"
+          }
+        ]
+      },
+      "provenance": {
+        "featureFlags": {
+          "awaitSidecarReadiness": true,
+          "coschedule": "workspaces",
+          "enableAPIFields": "beta",
+          "enableProvenanceInStatus": true,
+          "enforceNonfalsifiability": "none",
+          "maxResultSize": 4096,
+          "resultExtractionMethod": "termination-message",
+          "runningInEnvWithInjectedSidecars": true,
+          "sendCloudEventsForRuns": true,
+          "verificationNoMatchPolicy": "ignore"
+        }
+      },
+      "startTime": "2026-10-20T15:55:24Z"
+    }
+  },
+  {
+    "name": "eventcatalog-qfwkz",
+    "status": {
+      "childReferences": [
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qfwkz-acquire-build",
+          "pipelineTaskName": "acquire-build"
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qfwkz-clone",
+          "pipelineTaskName": "clone",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qfwkz-discover",
+          "pipelineTaskName": "discover",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-qfwkz-release-build",
+          "pipelineTaskName": "release-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ],
+      "completionTime": "2026-10-20T16:01:20Z",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-20T16:01:20Z",
+          "message": "Tasks Completed: 4 (Failed: 0, Cancelled 0), Skipped: 3",
+          "reason": "Completed",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "finallyStartTime": "2026-10-20T16:01:14Z",
+      "pipelineSpec": {
+        "finally": [
+          {
+            "name": "release-build",
+            "params": [
+              {
+                "name": "status",
+                "value": "$(tasks.status)"
+              }
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "status",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "release",
+                    "demo-catalog",
+                    "eventcatalog-qfwkz",
+                    "ee450b28-3ef5-481a-927b-e791115cadbd",
+                    "$(params.status)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "name": "acquire-build",
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "acquired",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "acquire",
+                    "demo-catalog",
+                    "eventcatalog-qfwkz",
+                    "ee450b28-3ef5-481a-927b-e791115cadbd"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            }
+          },
+          {
+            "name": "clone",
+            "params": [
+              {
+                "name": "URL",
+                "value": "https://github.com/contract-first-kafka/demo-domain.git"
+              },
+              {
+                "name": "REVISION",
+                "value": "main"
+              },
+              {
+                "name": "SUBDIRECTORY",
+                "value": "source"
+              },
+              {
+                "name": "DELETE_EXISTING",
+                "value": "true"
+              }
+            ],
+            "runAfter": [
+              "acquire-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "git-clone"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "output",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "discover",
+            "runAfter": [
+              "clone"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "changed",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "npm_config_cache",
+                      "value": "/tmp/npm-cache"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "discover",
+                  "script": "#!/bin/sh\nset -eu\nnpm ci --ignore-scripts --no-audit --no-fund\nnpm run discover\nnode -e 'const fs=require(\"fs\"),d=JSON.parse(fs.readFileSync(\".discovery.json\"));fs.writeFileSync(\"$(results.changed.path)\",String(d.changed));fs.writeFileSync(\"$(results.fingerprint.path)\",d.inputDigest)'\n",
+                  "workingDir": "$(workspaces.source.path)/source/eventcatalog"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "generate-and-build",
+            "params": [
+              {
+                "name": "SCRIPT",
+                "value": "set -eu\nexport CATALOG_URL=\"https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io\"\nexport NODE_OPTIONS=--max-old-space-size=4096\nmkdir -p public/LICENSES\ncp node_modules/@eventcatalog/core/LICENSE public/LICENSES/EventCatalog.txt\ncp node_modules/@eventcatalog/core/NOTICE public/LICENSES/EventCatalog-NOTICE.txt\ncp node_modules/@eventcatalog/generator-asyncapi/LICENSE public/LICENSES/AsyncAPI-generator.txt\nnpm run generate\nnpm run build\n"
+              }
+            ],
+            "runAfter": [
+              "discover"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "nodejs"
+                },
+                {
+                  "name": "namespace",
+                  "value": "tekton-tasks"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "build-and-push",
+            "params": [
+              {
+                "name": "IMAGE",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-$(tasks.discover.results.fingerprint)"
+              },
+              {
+                "name": "DOCKERFILE",
+                "value": "Dockerfile"
+              }
+            ],
+            "runAfter": [
+              "generate-and-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "buildah"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              },
+              {
+                "name": "dockerconfig",
+                "workspace": "registry-auth"
+              }
+            ]
+          },
+          {
+            "name": "publish-gitops-intent",
+            "params": [
+              {
+                "name": "image",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "$(tasks.discover.results.fingerprint)"
+              }
+            ],
+            "retries": 2,
+            "runAfter": [
+              "build-and-push"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "image",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/publish-intent.mjs",
+                    "https://github.com/contract-first-kafka/demo-domain.git",
+                    "$(params.image)",
+                    "$(params.fingerprint)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "PROJECT",
+                      "value": "$(workspaces.source.path)/source/eventcatalog"
+                    },
+                    {
+                      "name": "GITHUB_APP_ID",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "app-id",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    },
+                    {
+                      "name": "GITHUB_APP_PRIVATE_KEY",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "private-key",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "update-intent",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          }
+        ],
+        "workspaces": [
+          {
+            "name": "source"
+          },
+          {
+            "name": "registry-auth"
+          }
+        ]
+      },
+      "provenance": {
+        "featureFlags": {
+          "awaitSidecarReadiness": true,
+          "coschedule": "workspaces",
+          "enableAPIFields": "beta",
+          "enableProvenanceInStatus": true,
+          "enforceNonfalsifiability": "none",
+          "maxResultSize": 4096,
+          "resultExtractionMethod": "termination-message",
+          "runningInEnvWithInjectedSidecars": true,
+          "sendCloudEventsForRuns": true,
+          "verificationNoMatchPolicy": "ignore"
+        }
+      },
+      "skippedTasks": [
+        {
+          "name": "generate-and-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build-and-push",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "publish-gitops-intent",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ],
+      "startTime": "2026-10-20T16:00:17Z"
+    }
+  },
+  {
+    "name": "eventcatalog-wlpfr",
+    "status": {
+      "childReferences": [
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-acquire-build",
+          "pipelineTaskName": "acquire-build"
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-clone",
+          "pipelineTaskName": "clone",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-discover",
+          "pipelineTaskName": "discover",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-generate-and-build",
+          "pipelineTaskName": "generate-and-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-build-and-push",
+          "pipelineTaskName": "build-and-push",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-publish-gitops-intent",
+          "pipelineTaskName": "publish-gitops-intent",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-wlpfr-release-build",
+          "pipelineTaskName": "release-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ],
+      "completionTime": "2026-10-20T16:08:14Z",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-20T16:08:14Z",
+          "message": "Tasks Completed: 7 (Failed: 0, Cancelled 0), Skipped: 0",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "finallyStartTime": "2026-10-20T16:07:51Z",
+      "pipelineSpec": {
+        "finally": [
+          {
+            "name": "release-build",
+            "params": [
+              {
+                "name": "status",
+                "value": "$(tasks.status)"
+              }
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "status",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "release",
+                    "demo-catalog",
+                    "eventcatalog-wlpfr",
+                    "7825d91d-5938-4cbb-8323-0f8416ae6446",
+                    "$(params.status)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "name": "acquire-build",
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "acquired",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "acquire",
+                    "demo-catalog",
+                    "eventcatalog-wlpfr",
+                    "7825d91d-5938-4cbb-8323-0f8416ae6446"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            }
+          },
+          {
+            "name": "clone",
+            "params": [
+              {
+                "name": "URL",
+                "value": "https://github.com/contract-first-kafka/demo-domain.git"
+              },
+              {
+                "name": "REVISION",
+                "value": "main"
+              },
+              {
+                "name": "SUBDIRECTORY",
+                "value": "source"
+              },
+              {
+                "name": "DELETE_EXISTING",
+                "value": "true"
+              }
+            ],
+            "runAfter": [
+              "acquire-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "git-clone"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "output",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "discover",
+            "runAfter": [
+              "clone"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "changed",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "npm_config_cache",
+                      "value": "/tmp/npm-cache"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "discover",
+                  "script": "#!/bin/sh\nset -eu\nnpm ci --ignore-scripts --no-audit --no-fund\nnpm run discover\nnode -e 'const fs=require(\"fs\"),d=JSON.parse(fs.readFileSync(\".discovery.json\"));fs.writeFileSync(\"$(results.changed.path)\",String(d.changed));fs.writeFileSync(\"$(results.fingerprint.path)\",d.inputDigest)'\n",
+                  "workingDir": "$(workspaces.source.path)/source/eventcatalog"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "generate-and-build",
+            "params": [
+              {
+                "name": "SCRIPT",
+                "value": "set -eu\nexport CATALOG_URL=\"https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io\"\nexport NODE_OPTIONS=--max-old-space-size=4096\nmkdir -p public/LICENSES\ncp node_modules/@eventcatalog/core/LICENSE public/LICENSES/EventCatalog.txt\ncp node_modules/@eventcatalog/core/NOTICE public/LICENSES/EventCatalog-NOTICE.txt\ncp node_modules/@eventcatalog/generator-asyncapi/LICENSE public/LICENSES/AsyncAPI-generator.txt\nnpm run generate\nnpm run build\n"
+              }
+            ],
+            "runAfter": [
+              "discover"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "nodejs"
+                },
+                {
+                  "name": "namespace",
+                  "value": "tekton-tasks"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "build-and-push",
+            "params": [
+              {
+                "name": "IMAGE",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-$(tasks.discover.results.fingerprint)"
+              },
+              {
+                "name": "DOCKERFILE",
+                "value": "Dockerfile"
+              }
+            ],
+            "runAfter": [
+              "generate-and-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "buildah"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              },
+              {
+                "name": "dockerconfig",
+                "workspace": "registry-auth"
+              }
+            ]
+          },
+          {
+            "name": "publish-gitops-intent",
+            "params": [
+              {
+                "name": "image",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "$(tasks.discover.results.fingerprint)"
+              }
+            ],
+            "retries": 2,
+            "runAfter": [
+              "build-and-push"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "image",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/publish-intent.mjs",
+                    "https://github.com/contract-first-kafka/demo-domain.git",
+                    "$(params.image)",
+                    "$(params.fingerprint)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "PROJECT",
+                      "value": "$(workspaces.source.path)/source/eventcatalog"
+                    },
+                    {
+                      "name": "GITHUB_APP_ID",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "app-id",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    },
+                    {
+                      "name": "GITHUB_APP_PRIVATE_KEY",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "private-key",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "update-intent",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          }
+        ],
+        "workspaces": [
+          {
+            "name": "source"
+          },
+          {
+            "name": "registry-auth"
+          }
+        ]
+      },
+      "provenance": {
+        "featureFlags": {
+          "awaitSidecarReadiness": true,
+          "coschedule": "workspaces",
+          "enableAPIFields": "beta",
+          "enableProvenanceInStatus": true,
+          "enforceNonfalsifiability": "none",
+          "maxResultSize": 4096,
+          "resultExtractionMethod": "termination-message",
+          "runningInEnvWithInjectedSidecars": true,
+          "sendCloudEventsForRuns": true,
+          "verificationNoMatchPolicy": "ignore"
+        }
+      },
+      "startTime": "2026-10-20T16:03:46Z"
+    }
+  },
+  {
+    "name": "eventcatalog-574dc",
+    "status": {
+      "childReferences": [
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-acquire-build",
+          "pipelineTaskName": "acquire-build"
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-clone",
+          "pipelineTaskName": "clone",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-discover",
+          "pipelineTaskName": "discover",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-generate-and-build",
+          "pipelineTaskName": "generate-and-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-build-and-push",
+          "pipelineTaskName": "build-and-push",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-publish-gitops-intent",
+          "pipelineTaskName": "publish-gitops-intent",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-574dc-release-build",
+          "pipelineTaskName": "release-build",
+          "whenExpressions": [
+            {
+              "input": "true",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ],
+      "completionTime": "2026-10-20T16:12:58Z",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-20T16:12:58Z",
+          "message": "Tasks Completed: 7 (Failed: 0, Cancelled 0), Skipped: 0",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "finallyStartTime": "2026-10-20T16:12:52Z",
+      "pipelineSpec": {
+        "finally": [
+          {
+            "name": "release-build",
+            "params": [
+              {
+                "name": "status",
+                "value": "$(tasks.status)"
+              }
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "status",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "release",
+                    "demo-catalog",
+                    "eventcatalog-574dc",
+                    "1621bd6f-227f-459a-84d2-e017f0162d78",
+                    "$(params.status)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "name": "acquire-build",
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "acquired",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "acquire",
+                    "demo-catalog",
+                    "eventcatalog-574dc",
+                    "1621bd6f-227f-459a-84d2-e017f0162d78"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            }
+          },
+          {
+            "name": "clone",
+            "params": [
+              {
+                "name": "URL",
+                "value": "https://github.com/contract-first-kafka/demo-domain.git"
+              },
+              {
+                "name": "REVISION",
+                "value": "main"
+              },
+              {
+                "name": "SUBDIRECTORY",
+                "value": "source"
+              },
+              {
+                "name": "DELETE_EXISTING",
+                "value": "true"
+              }
+            ],
+            "runAfter": [
+              "acquire-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "git-clone"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "output",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "discover",
+            "runAfter": [
+              "clone"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "changed",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "npm_config_cache",
+                      "value": "/tmp/npm-cache"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "discover",
+                  "script": "#!/bin/sh\nset -eu\nnpm ci --ignore-scripts --no-audit --no-fund\nnpm run discover\nnode -e 'const fs=require(\"fs\"),d=JSON.parse(fs.readFileSync(\".discovery.json\"));fs.writeFileSync(\"$(results.changed.path)\",String(d.changed));fs.writeFileSync(\"$(results.fingerprint.path)\",d.inputDigest)'\n",
+                  "workingDir": "$(workspaces.source.path)/source/eventcatalog"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "generate-and-build",
+            "params": [
+              {
+                "name": "SCRIPT",
+                "value": "set -eu\nexport CATALOG_URL=\"https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io\"\nexport NODE_OPTIONS=--max-old-space-size=4096\nmkdir -p public/LICENSES\ncp node_modules/@eventcatalog/core/LICENSE public/LICENSES/EventCatalog.txt\ncp node_modules/@eventcatalog/core/NOTICE public/LICENSES/EventCatalog-NOTICE.txt\ncp node_modules/@eventcatalog/generator-asyncapi/LICENSE public/LICENSES/AsyncAPI-generator.txt\nnpm run generate\nnpm run build\n"
+              }
+            ],
+            "runAfter": [
+              "discover"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "nodejs"
+                },
+                {
+                  "name": "namespace",
+                  "value": "tekton-tasks"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "build-and-push",
+            "params": [
+              {
+                "name": "IMAGE",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-$(tasks.discover.results.fingerprint)"
+              },
+              {
+                "name": "DOCKERFILE",
+                "value": "Dockerfile"
+              }
+            ],
+            "runAfter": [
+              "generate-and-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "buildah"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              },
+              {
+                "name": "dockerconfig",
+                "workspace": "registry-auth"
+              }
+            ]
+          },
+          {
+            "name": "publish-gitops-intent",
+            "params": [
+              {
+                "name": "image",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "$(tasks.discover.results.fingerprint)"
+              }
+            ],
+            "retries": 2,
+            "runAfter": [
+              "build-and-push"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "image",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/publish-intent.mjs",
+                    "https://github.com/contract-first-kafka/demo-domain.git",
+                    "$(params.image)",
+                    "$(params.fingerprint)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "PROJECT",
+                      "value": "$(workspaces.source.path)/source/eventcatalog"
+                    },
+                    {
+                      "name": "GITHUB_APP_ID",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "app-id",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    },
+                    {
+                      "name": "GITHUB_APP_PRIVATE_KEY",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "private-key",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "update-intent",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          }
+        ],
+        "workspaces": [
+          {
+            "name": "source"
+          },
+          {
+            "name": "registry-auth"
+          }
+        ]
+      },
+      "provenance": {
+        "featureFlags": {
+          "awaitSidecarReadiness": true,
+          "coschedule": "workspaces",
+          "enableAPIFields": "beta",
+          "enableProvenanceInStatus": true,
+          "enforceNonfalsifiability": "none",
+          "maxResultSize": 4096,
+          "resultExtractionMethod": "termination-message",
+          "runningInEnvWithInjectedSidecars": true,
+          "sendCloudEventsForRuns": true,
+          "verificationNoMatchPolicy": "ignore"
+        }
+      },
+      "startTime": "2026-10-20T16:08:14Z"
+    }
+  },
+  {
+    "name": "eventcatalog-k95lt",
+    "status": {
+      "childReferences": [
+        {
+          "apiVersion": "tekton.dev/v1",
+          "kind": "TaskRun",
+          "name": "eventcatalog-k95lt-acquire-build",
+          "pipelineTaskName": "acquire-build"
+        }
+      ],
+      "completionTime": "2026-10-20T16:06:50Z",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-20T16:06:50Z",
+          "message": "Tasks Completed: 1 (Failed: 0, Cancelled 0), Skipped: 6",
+          "reason": "Completed",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "finallyStartTime": "2026-10-20T16:06:50Z",
+      "pipelineSpec": {
+        "finally": [
+          {
+            "name": "release-build",
+            "params": [
+              {
+                "name": "status",
+                "value": "$(tasks.status)"
+              }
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "status",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "release",
+                    "demo-catalog",
+                    "eventcatalog-k95lt",
+                    "cbd0d929-3f4f-4ebd-b6c5-d69b365c4388",
+                    "$(params.status)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ]
+          }
+        ],
+        "tasks": [
+          {
+            "name": "acquire-build",
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "acquired",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/build-lock.mjs",
+                    "acquire",
+                    "demo-catalog",
+                    "eventcatalog-k95lt",
+                    "cbd0d929-3f4f-4ebd-b6c5-d69b365c4388"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "NODE_EXTRA_CA_CERTS",
+                      "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "lease",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ]
+            }
+          },
+          {
+            "name": "clone",
+            "params": [
+              {
+                "name": "URL",
+                "value": "https://github.com/contract-first-kafka/demo-domain.git"
+              },
+              {
+                "name": "REVISION",
+                "value": "main"
+              },
+              {
+                "name": "SUBDIRECTORY",
+                "value": "source"
+              },
+              {
+                "name": "DELETE_EXISTING",
+                "value": "true"
+              }
+            ],
+            "runAfter": [
+              "acquire-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "git-clone"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "output",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "discover",
+            "runAfter": [
+              "clone"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "results": [
+                {
+                  "name": "changed",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "npm_config_cache",
+                      "value": "/tmp/npm-cache"
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "discover",
+                  "script": "#!/bin/sh\nset -eu\nnpm ci --ignore-scripts --no-audit --no-fund\nnpm run discover\nnode -e 'const fs=require(\"fs\"),d=JSON.parse(fs.readFileSync(\".discovery.json\"));fs.writeFileSync(\"$(results.changed.path)\",String(d.changed));fs.writeFileSync(\"$(results.fingerprint.path)\",d.inputDigest)'\n",
+                  "workingDir": "$(workspaces.source.path)/source/eventcatalog"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.acquire-build.results.acquired)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "generate-and-build",
+            "params": [
+              {
+                "name": "SCRIPT",
+                "value": "set -eu\nexport CATALOG_URL=\"https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io\"\nexport NODE_OPTIONS=--max-old-space-size=4096\nmkdir -p public/LICENSES\ncp node_modules/@eventcatalog/core/LICENSE public/LICENSES/EventCatalog.txt\ncp node_modules/@eventcatalog/core/NOTICE public/LICENSES/EventCatalog-NOTICE.txt\ncp node_modules/@eventcatalog/generator-asyncapi/LICENSE public/LICENSES/AsyncAPI-generator.txt\nnpm run generate\nnpm run build\n"
+              }
+            ],
+            "runAfter": [
+              "discover"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "nodejs"
+                },
+                {
+                  "name": "namespace",
+                  "value": "tekton-tasks"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              }
+            ]
+          },
+          {
+            "name": "build-and-push",
+            "params": [
+              {
+                "name": "IMAGE",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-$(tasks.discover.results.fingerprint)"
+              },
+              {
+                "name": "DOCKERFILE",
+                "value": "Dockerfile"
+              }
+            ],
+            "runAfter": [
+              "generate-and-build"
+            ],
+            "taskRef": {
+              "params": [
+                {
+                  "name": "kind",
+                  "value": "task"
+                },
+                {
+                  "name": "name",
+                  "value": "buildah"
+                },
+                {
+                  "name": "namespace",
+                  "value": "openshift-pipelines"
+                }
+              ],
+              "resolver": "cluster"
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "subPath": "source/eventcatalog",
+                "workspace": "source"
+              },
+              {
+                "name": "dockerconfig",
+                "workspace": "registry-auth"
+              }
+            ]
+          },
+          {
+            "name": "publish-gitops-intent",
+            "params": [
+              {
+                "name": "image",
+                "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "$(tasks.discover.results.fingerprint)"
+              }
+            ],
+            "retries": 2,
+            "runAfter": [
+              "build-and-push"
+            ],
+            "taskSpec": {
+              "metadata": {},
+              "params": [
+                {
+                  "name": "image",
+                  "type": "string"
+                },
+                {
+                  "name": "fingerprint",
+                  "type": "string"
+                }
+              ],
+              "spec": null,
+              "steps": [
+                {
+                  "args": [
+                    "/tools/publish-intent.mjs",
+                    "https://github.com/contract-first-kafka/demo-domain.git",
+                    "$(params.image)",
+                    "$(params.fingerprint)"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "computeResources": {},
+                  "env": [
+                    {
+                      "name": "PROJECT",
+                      "value": "$(workspaces.source.path)/source/eventcatalog"
+                    },
+                    {
+                      "name": "GITHUB_APP_ID",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "app-id",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    },
+                    {
+                      "name": "GITHUB_APP_PRIVATE_KEY",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "private-key",
+                          "name": "eventcatalog-gitops"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "registry.access.redhat.com/ubi9/nodejs-24:latest",
+                  "name": "update-intent",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tools",
+                      "name": "tools"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "configMap": {
+                    "name": "eventcatalog-tools"
+                  },
+                  "name": "tools"
+                }
+              ],
+              "workspaces": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            "when": [
+              {
+                "input": "$(tasks.discover.results.changed)",
+                "operator": "in",
+                "values": [
+                  "true"
+                ]
+              }
+            ],
+            "workspaces": [
+              {
+                "name": "source",
+                "workspace": "source"
+              }
+            ]
+          }
+        ],
+        "workspaces": [
+          {
+            "name": "source"
+          },
+          {
+            "name": "registry-auth"
+          }
+        ]
+      },
+      "provenance": {
+        "featureFlags": {
+          "awaitSidecarReadiness": true,
+          "coschedule": "workspaces",
+          "enableAPIFields": "beta",
+          "enableProvenanceInStatus": true,
+          "enforceNonfalsifiability": "none",
+          "maxResultSize": 4096,
+          "resultExtractionMethod": "termination-message",
+          "runningInEnvWithInjectedSidecars": true,
+          "sendCloudEventsForRuns": true,
+          "verificationNoMatchPolicy": "ignore"
+        }
+      },
+      "skippedTasks": [
+        {
+          "name": "clone",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "discover",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "generate-and-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build-and-push",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "publish-gitops-intent",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "release-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ],
+      "startTime": "2026-10-20T16:06:44Z"
+    }
+  }
+]
