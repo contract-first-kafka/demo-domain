@@ -1,0 +1,5 @@
+systemName: order-fulfillment
+groupId: io.github.contractfirstkafka.demo.orderfulfillment
+repository:
+  cloneUrl: https://github.com/contract-first-kafka/order-fulfillment-system.git
+  revision: main
