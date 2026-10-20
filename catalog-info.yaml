@@ -17,6 +17,8 @@ spec:
   owner: group:default/domain-maintainers
   platformTarget: resource:default/workshop
   groupId: io.github.contractfirstkafka.demo
+  eventCatalog:
+    enabled: true
   environments:
     order:
       - dev
