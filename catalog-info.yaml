@@ -3,7 +3,8 @@ kind: Domain
 metadata:
   name: demo
   title: Demo
-  description: Demonstration domain for event-driven business systems and contract-first API development.
+  description: Demonstration domain for event-driven business systems and
+    contract-first API development.
   annotations:
     contract-first-idp.github.io/scm-provider: github
     contract-first-idp.github.io/scm-host: github.com
@@ -19,6 +20,8 @@ spec:
   groupId: io.github.contractfirstkafka.demo
   eventCatalog:
     enabled: true
+    image: registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@sha256:03cb5595cb2682f3538f324775921984ab6bd70f0b4624425537fa59f815ec02
+    inputDigest: 17975cb69e96cd7898f3f8d393f9fd4c425ff62b93f3f2d16bf8dc8b0061d990
   environments:
     order:
       - dev
@@ -27,8 +30,8 @@ spec:
     build: dev
     definitions:
       dev:
-        namespaceSuffix: "-dev"
+        namespaceSuffix: -dev
       test:
-        namespaceSuffix: "-test"
+        namespaceSuffix: -test
       prod:
         namespaceSuffix: ""
