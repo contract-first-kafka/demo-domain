@@ -1,0 +1,5 @@
+systemName: swan
+groupId: io.github.contractfirstkafka.demo.swan
+repository:
+  cloneUrl: https://github.com/contract-first-kafka/swan-system.git
+  revision: main
