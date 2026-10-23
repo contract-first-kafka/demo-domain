@@ -1,0 +1,5 @@
+systemName: back-office
+groupId: io.github.contractfirstkafka.demo.backoffice
+repository:
+  cloneUrl: https://github.com/contract-first-kafka/back-office-system.git
+  revision: main
