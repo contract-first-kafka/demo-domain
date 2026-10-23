@@ -1,0 +1,5 @@
+systemName: flight-meals
+groupId: io.github.contractfirstkafka.demo.flightmeals
+repository:
+  cloneUrl: https://github.com/contract-first-kafka/flight-meals-system.git
+  revision: main
